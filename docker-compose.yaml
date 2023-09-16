@@ -3,10 +3,14 @@ version: '3.7' # define docker compose version
 services:
   item-app: # define item-app service
     image: ghcr.io/bayudha2/item-app:v1 # use image from github packages
-    networks: # use defined network
-      - todo-network 
+    command: sh -c "npm install --production --unsafe-perm && npm run build" # run command to install depedency and run build application for production
     ports: # expose port 80
       - 80:80
+    working_dir: /app
+    volumes:
+      - ./:/app
+    networks: # use defined network
+      - todo-network 
     depends_on: # wait until item-db service done
       - item-db
     environment: # env for item-app service
