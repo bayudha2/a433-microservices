@@ -1,0 +1,34 @@
+version: '3.7' # define docker compose version
+
+services:
+  item-app: # define item-app service
+    image: ghcr.io/bayudha2/item-app:v1 # use image from github packages
+    networks: # use defined network
+      - todo-network 
+    ports: # expose port 80
+      - 80:80
+    depends_on: # wait until item-db service done
+      - item-db
+    environment: # env for item-app service
+      - NODE_ENV=production
+      - DB_HOST=item-db
+    restart: always # always restart container when stop
+
+  item-db: # define item-db service
+    image: mongo:3 # use mongo:3 image
+    ports: # expose default mongo port
+      - 27017:27017
+    networks: # use defined network
+      - todo-network
+    volumes: # use defined volume to receive data from database
+      - app-db:/data/db
+    restart: always # always restsart container when stop
+
+volumes: # define volume app-db
+  app-db:
+    name: app-db
+
+networks: # define network todo-network
+  todo-network:
+    name: todo-network
+    driver: bridge
