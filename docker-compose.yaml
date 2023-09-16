@@ -6,8 +6,8 @@ services:
     command: sh -c "npm install --production --unsafe-perm && npm run build" # run command to install depedency and run build application for production
     ports: # expose port 80
       - 80:80
-    working_dir: /app
-    volumes:
+    working_dir: /app # change working directory
+    volumes: # mount current dir to container /app dir
       - ./:/app
     networks: # use defined network
       - todo-network 
