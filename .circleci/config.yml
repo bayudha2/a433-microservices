@@ -16,6 +16,9 @@ jobs:
       - image: cimg/go:1.15.15
     steps:
       - checkout
+      - run:
+          name: Install Docker client
+          command: apk add docker-cli
       - run: chmod +x build_push_image_karsajobs.sh
       - run: ./build_push_image_karsajobs.sh
 
