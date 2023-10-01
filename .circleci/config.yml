@@ -5,13 +5,13 @@ orbs:
 
 # Define the jobs we want to run for this project
 jobs:
-  test-app:
+  test-app: # detail job and step for testing go app with docker image go
     docker:
       - image: cimg/go:1.15.15
     steps:
       - checkout
       - run: go test -v -short --count=1 $(go list ./...)
-  build-app-karsajobs:
+  build-app-karsajobs: # detail job and step for running build and push image script using image go and image docker
     docker:
       - image: cimg/go:1.15.15
     steps:
@@ -26,12 +26,12 @@ jobs:
 workflows:
   lint_test_build:
     jobs:
-      - docker/hadolint:
+      - docker/hadolint: # run lint with hadolint for dockerfile
           dockerfiles: './Dockerfile'
           ignore-rules: 'DL4005,DL3008'
-      - test-app:
+      - test-app: # run test app job if hadolint is success 
           requires:
             - docker/hadolint
-      - build-app-karsajobs:
+      - build-app-karsajobs: # run build and push app job if test app is success
           requires:
             - test-app
