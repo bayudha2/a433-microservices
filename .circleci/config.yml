@@ -16,6 +16,7 @@ jobs:
       - image: cimg/go:1.15.15
     steps:
       - checkout
+      - run: chmod +x build_push_image_karsajobs.sh
       - run: ./build_push_image_karsajobs.sh
 
 # Orchestrate our job run sequence
