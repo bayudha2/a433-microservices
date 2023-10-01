@@ -1,7 +1,7 @@
 #! /bin/bash
 
 # build with docker image
-docker build -t bayudha2/karsajobs:latest
+docker build -t bayudha2/karsajobs:latest .
 echo ""
 
 # login to github packages
