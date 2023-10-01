@@ -8,6 +8,10 @@ echo ""
 echo $PAT | docker login ghcr.io --username bayudha2 --password-stdin
 echo ""
 
+# tag created image to push to registry
+docker tag bayudha2/karsajobs:latest ghcr.io/bayudha2/karsajobs:latest
+echo ""
+
 # push tagged image to github packages
-docker push bayudha2/karsajobs:latest
+docker push ghcr.io/bayudha2/karsajobs:latest
 echo ""
